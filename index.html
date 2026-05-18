@@ -130,7 +130,19 @@ Made of 100% natural wool and round glass eyes<br>
 
       <img src="images/slika3.png" class="sticker sticker-price">
 
-    <a href="https://paypal.me/woolicefelts/130" target="_blank" class="btn">Order now</a>
+    <form id="order-form" class="order-form">
+
+  <input type="text" id="name" placeholder="Your name" required>
+
+  <input type="email" id="email" placeholder="Your email" required>
+
+  <textarea id="details" placeholder="Tell me about your dog"></textarea>
+
+  <button type="submit" class="btn">
+    Continue to PayPal
+  </button>
+
+</form>
 
   </section>
 
@@ -174,6 +186,29 @@ Made of 100% natural wool and round glass eyes<br>
   <footer class="footer">
     <p>© Woolice Felts</p>
   </footer>
+
+  <script>
+document.getElementById("order-form").addEventListener("submit", async function(e) {
+
+    e.preventDefault();
+
+    const orderData = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        details: document.getElementById("details").value
+    };
+
+    await fetch("https://woolice-backed.onrender.com/order", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(orderData)
+    });
+
+    window.open("https://paypal.me/woolicefelts/130", "_blank");
+});
+</script>
 
 </body>
 </html>
